@@ -1,3 +1,13 @@
+🚨 UWAGA - NOWE REPOZYTORIUM 🚨
+
+⚠️ STARE REPOZYTORIUM STRACIŁO PLIKI PRZEZ UŻYCIE --force ⚠️
+
+To jest nowe repozytorium utworzone w celu odzyskania projektu po utracie danych w poprzednim repozytorium.
+
+Poprzednie repozytorium zostało uszkodzone przez użycie komendy git push --force, co spowodowało utratę historii commitów i plików. Wszystkie pliki zostały odzyskane z serwera produkcyjnego (serwer2522567.home.pl) i wrzucone do tego nowego repozytorium.
+
+Data utworzenia nowego repozytorium: 5 grudnia 2024
+
 # BMCODEX - Sklep z częściami do tuningu
 
 ## 🚗 O Projekcie
