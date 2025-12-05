@@ -218,7 +218,7 @@
             <div class="product-card">
                 <div class="product-image">
                     @if($product->image_url)
-                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="{{ $product->image_url }}?v={{ time() }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
                     @else
                         🏎️
                     @endif
