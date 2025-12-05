@@ -164,6 +164,16 @@ PAYPAL_SANDBOX_SECRET=your_sandbox_secret
 
 ## Implementacja w Sklepie BMCodex
 
+### ⚠️ WAŻNE: Przed przejściem do płatności
+
+**Przed rozpoczęciem procesu płatności należy włączyć PayU w konfiguracji sklepu!**
+
+Upewnij się, że:
+1. Dane PayU są poprawnie skonfigurowane w pliku `.env`
+2. Kontroler PayU jest załadowany i dostępny
+3. Routing dla PayU jest aktywny
+4. Tryb sandbox jest włączony dla testów
+
 ### Krok 1: Wybór bramki płatności
 
 Wybierz bramkę płatności odpowiednią dla Twojego sklepu (np. Przelewy24 lub PayU dla polskich klientów).
@@ -265,6 +275,10 @@ Gdy testy zostaną zakończone pomyślnie:
 ## Podsumowanie
 
 Tryb sandbox pozwala na bezpieczne testowanie integracji płatności bez ryzyka finansowego. Przed uruchomieniem produkcyjnym należy dokładnie przetestować wszystkie scenariusze płatności i upewnić się, że system poprawnie obsługuje zarówno udane, jak i nieudane transakcje.
+
+### ⚠️ Pamiętaj!
+
+**Przed każdą płatnością upewnij się, że PayU jest włączone w konfiguracji sklepu!** Bez poprawnej konfiguracji proces płatności nie będzie działał.
 
 ---
 
