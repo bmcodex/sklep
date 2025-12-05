@@ -97,8 +97,8 @@ class OrderController extends Controller
 
             DB::commit();
 
-            // Przekierowanie do PayU
-            return $this->initiatePayUPayment($order);
+            // Przekierowanie do formularza płatności PayU sandbox
+            return redirect()->route('payu.payment', $order);
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -168,71 +168,5 @@ class OrderController extends Controller
             ->get();
     }
 
-    /**
-     * Initiate PayU payment.
-     */
-    private function initiatePayUPayment(Order $order)
-    {
-        $posId = env('PAYU_POS_ID', '300746');
-        $secondKey = env('PAYU_SECOND_KEY', 'b6ca15b0d1020e8094d9b5f8d163db54');
-        $apiUrl = env('PAYU_API_URL', 'https://secure.snd.payu.com');
-        
-        // Przygotowanie danych zamówienia
-        $orderData = [
-            'notifyUrl' => route('payu.notify'),
-            'customerIp' => request()->ip(),
-            'merchantPosId' => $posId,
-            'description' => 'Zamówienie #' . $order->id,
-            'currencyCode' => 'PLN',
-            'totalAmount' => (int)($order->total_price * 100), // w groszach
-            'extOrderId' => $order->id . '-' . time(),
-            'buyer' => [
-                'email' => $order->guest_email ?? Auth::user()->email ?? 'test@example.com',
-                'firstName' => 'Klient',
-                'lastName' => 'BMCODEX',
-            ],
-            'products' => [
-                [
-                    'name' => 'Zamówienie #' . $order->id,
-                    'unitPrice' => (int)($order->total_price * 100),
-                    'quantity' => 1,
-                ]
-            ],
-            'continueUrl' => route('order.confirmation', $order),
-        ];
 
-        // Pobierz token OAuth
-        try {
-            $tokenResponse = Http::asForm()->post($apiUrl . '/pl/standard/user/oauth/authorize', [
-                'grant_type' => 'client_credentials',
-                'client_id' => env('PAYU_CLIENT_ID', '300746'),
-                'client_secret' => env('PAYU_CLIENT_SECRET', '2ee86a66e5d97e3fadc400c9f19b065d'),
-            ]);
-
-            if (!$tokenResponse->successful()) {
-                return redirect()->route('order.confirmation', $order)
-                    ->with('error', 'Nie udało się połączyć z bramką płatności.');
-            }
-
-            $accessToken = $tokenResponse->json('access_token');
-
-            // Utwórz zamówienie w PayU
-            $paymentResponse = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $accessToken,
-                'Content-Type' => 'application/json',
-            ])->post($apiUrl . '/api/v2_1/orders', $orderData);
-
-            if ($paymentResponse->successful()) {
-                $redirectUri = $paymentResponse->json('redirectUri');
-                return redirect($redirectUri);
-            } else {
-                return redirect()->route('order.confirmation', $order)
-                    ->with('error', 'Nie udało się zainicjować płatności.');
-            }
-
-        } catch (\Exception $e) {
-            return redirect()->route('order.confirmation', $order)
-                ->with('error', 'Wystąpił błąd podczas inicjowania płatności: ' . $e->getMessage());
-        }
-    }
 }

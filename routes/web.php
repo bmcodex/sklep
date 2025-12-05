@@ -58,6 +58,12 @@ Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
 Route::get('/order/{order}/confirmation', [OrderController::class, 'confirmation'])->name('order.confirmation');
 
+// PayU
+Route::get('/payu/payment/{order}', [\App\Http\Controllers\PayUController::class, 'showPaymentForm'])->name('payu.payment');
+Route::post('/payu/process/{order}', [\App\Http\Controllers\PayUController::class, 'processPayment'])->name('payu.process');
+Route::post('/payu/notify', [\App\Http\Controllers\PayUController::class, 'notify'])->name('payu.notify');
+Route::get('/payu/cancel/{order}', [\App\Http\Controllers\PayUController::class, 'cancel'])->name('payu.cancel');
+
 // Panel admina
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
