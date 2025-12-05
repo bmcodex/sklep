@@ -1,16 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-8 min-h-screen">
     <div class="max-w-2xl mx-auto">
         <!-- PayU Logo -->
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-orange-500 mb-2">PayU Sandbox</h1>
-            <p class="text-gray-400">Tryb testowy - symulacja płatności</p>
+        <div class="text-center mb-8 animate-fade-in">
+            <div class="inline-block bg-orange-500 px-8 py-4 rounded-lg mb-4">
+                <h1 class="text-4xl font-bold text-white">PayU</h1>
+            </div>
+            <p class="text-gray-400 text-lg">Tryb testowy - symulacja płatności</p>
         </div>
 
         <!-- Order Summary -->
-        <div class="bg-gray-800 rounded-lg p-6 mb-6">
+        <div class="bg-gray-800 rounded-lg p-6 mb-6 shadow-xl border border-gray-700 animate-slide-up">
             <h2 class="text-xl font-bold text-white mb-4">Podsumowanie zamówienia</h2>
             
             <div class="space-y-2 text-gray-300">
@@ -30,7 +32,7 @@
         </div>
 
         <!-- Payment Methods -->
-        <form action="{{ route('payu.process', $order) }}" method="POST" class="bg-gray-800 rounded-lg p-6">
+        <form action="{{ route('payu.process', $order) }}" method="POST" class="bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700 animate-slide-up" style="animation-delay: 0.1s;">
             @csrf
             
             <h3 class="text-lg font-bold text-white mb-4">Wybierz metodę płatności</h3>
@@ -91,14 +93,14 @@
             </div>
 
             <!-- Buttons -->
-            <div class="flex gap-4 mt-6">
+            <div class="flex flex-col sm:flex-row gap-4 mt-6">
                 <a href="{{ route('payu.cancel', $order) }}" 
-                   class="flex-1 bg-gray-700 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition text-center">
-                    Anuluj
+                   class="flex-1 bg-gray-700 text-white px-6 py-4 rounded-lg hover:bg-gray-600 transition text-center font-medium">
+                    ← Anuluj
                 </a>
                 <button type="submit" 
-                        class="flex-1 bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition font-bold">
-                    Zapłać {{ number_format($order->total_price, 2) }} PLN
+                        class="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-4 rounded-lg hover:from-orange-600 hover:to-orange-700 transition font-bold text-lg shadow-lg transform hover:scale-105">
+                    🔒 Zapłać {{ number_format($order->total_price, 2) }} PLN
                 </button>
             </div>
         </form>

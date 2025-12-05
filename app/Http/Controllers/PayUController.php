@@ -31,7 +31,7 @@ class PayUController extends Controller
 
         // Symulacja płatności - w trybie sandbox zawsze sukces
         $order->update([
-            'status' => 'paid',
+            'status' => 'processing', // Płatność zaakceptowana, zamówienie w realizacji
         ]);
 
         return redirect()->route('order.confirmation', $order)
