@@ -281,6 +281,5 @@ Tryb sandbox pozwala na bezpieczne testowanie integracji płatności bez ryzyka 
 **Przed każdą płatnością upewnij się, że PayU jest włączone w konfiguracji sklepu!** Bez poprawnej konfiguracji proces płatności nie będzie działał.
 
 ---
-
-**Autor:** Manus AI  
+ 
 **Data:** 5 grudnia 2024
