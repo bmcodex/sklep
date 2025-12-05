@@ -147,7 +147,6 @@
         <ul class="sidebar-menu">
             <li><a href="{{ route('dashboard') }}" class="active">📊 Panel główny</a></li>
             <li><a href="{{ route('orders.index') }}">📦 Moje zamówienia</a></li>
-            <li><a href="{{ route('favorites.index') }}">❤️ Ulubione</a></li>
             <li><a href="{{ route('profile') }}">👤 Moje dane</a></li>
         </ul>
     </aside>
@@ -162,11 +161,6 @@
             <div class="stat-card">
                 <div class="stat-value">{{ $ordersCount }}</div>
                 <div class="stat-label">Zamówienia</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-value">{{ $favoritesCount }}</div>
-                <div class="stat-label">Ulubione produkty</div>
             </div>
             
             <div class="stat-card">

@@ -156,14 +156,6 @@
             </button>
         @endif
         
-        @auth
-            <form action="{{ route('favorites.add', $product) }}" method="POST" style="margin-top: 1rem;">
-                @csrf
-                <button type="submit" class="btn btn-secondary" style="width: 100%;">
-                    ❤️ Dodaj do ulubionych
-                </button>
-            </form>
-        @endauth
     </div>
 </div>
 @endsection

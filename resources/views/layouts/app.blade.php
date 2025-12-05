@@ -302,7 +302,6 @@
                     @if(auth()->user()->isAdmin())
                         <li><a href="{{ route('admin.dashboard') }}">Panel Admin</a></li>
                     @endif
-                    <li><a href="{{ route('favorites.index') }}">❤️ Ulubione</a></li>
                     <li><a href="{{ route('account') }}">Moje konto</a></li>
                     <li>
                         <form action="{{ route('logout') }}" method="POST" style="display: inline;">
