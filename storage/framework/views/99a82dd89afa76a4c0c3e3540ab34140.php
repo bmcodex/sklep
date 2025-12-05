@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Panel Administracyjny - BMCODEX'); ?>
 
-@section('title', 'Panel Administracyjny - BMCODEX')
-
-@section('styles')
+<?php $__env->startSection('styles'); ?>
 <style>
     .admin-container {
         display: grid;
@@ -142,18 +140,18 @@
         }
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="admin-container">
     <aside class="admin-sidebar">
         <h3>🔧 Panel Admin</h3>
         <ul class="sidebar-menu">
-            <li><a href="{{ route('admin.dashboard') }}" class="active">📊 Dashboard</a></li>
-            <li><a href="{{ route('admin.products.index') }}">📦 Produkty</a></li>
-            <li><a href="{{ route('admin.orders.index') }}">🛒 Zamówienia</a></li>
-            <li><a href="{{ route('admin.users.index') }}">👥 Użytkownicy</a></li>
-            <li><a href="{{ route('admin.categories.index') }}">📁 Kategorie</a></li>
+            <li><a href="<?php echo e(route('admin.dashboard')); ?>" class="active">📊 Dashboard</a></li>
+            <li><a href="<?php echo e(route('admin.products.index')); ?>">📦 Produkty</a></li>
+            <li><a href="<?php echo e(route('admin.orders.index')); ?>">🛒 Zamówienia</a></li>
+            <li><a href="<?php echo e(route('admin.users.index')); ?>">👥 Użytkownicy</a></li>
+            <li><a href="<?php echo e(route('admin.categories.index')); ?>">📁 Kategorie</a></li>
             <!-- Raporty usunięte -->
         </ul>
     </aside>
@@ -167,25 +165,25 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon">📦</div>
-                <div class="stat-value">{{ $productsCount }}</div>
+                <div class="stat-value"><?php echo e($productsCount); ?></div>
                 <div class="stat-label">Produkty</div>
             </div>
             
             <div class="stat-card">
                 <div class="stat-icon">🛒</div>
-                <div class="stat-value">{{ $ordersCount }}</div>
+                <div class="stat-value"><?php echo e($ordersCount); ?></div>
                 <div class="stat-label">Zamówienia</div>
             </div>
             
             <div class="stat-card">
                 <div class="stat-icon">👥</div>
-                <div class="stat-value">{{ $usersCount }}</div>
+                <div class="stat-value"><?php echo e($usersCount); ?></div>
                 <div class="stat-label">Użytkownicy</div>
             </div>
             
             <div class="stat-card">
                 <div class="stat-icon">💰</div>
-                <div class="stat-value">{{ number_format($totalRevenue, 2) }}</div>
+                <div class="stat-value"><?php echo e(number_format($totalRevenue, 2)); ?></div>
                 <div class="stat-label">Przychód (PLN)</div>
             </div>
         </div>
@@ -194,22 +192,22 @@
         <div class="quick-actions">
             <div class="action-card">
                 <h3>➕ Dodaj produkt</h3>
-                <a href="{{ route('admin.products.create') }}" class="btn btn-primary" style="width: 100%;">
+                <a href="<?php echo e(route('admin.products.create')); ?>" class="btn btn-primary" style="width: 100%;">
                     Nowy produkt
                 </a>
             </div>
             
             <div class="action-card">
                 <h3>📋 Zamówienia oczekujące</h3>
-                <a href="{{ route('admin.orders.index', ['status' => 'pending']) }}" class="btn btn-primary" style="width: 100%;">
-                    Zobacz ({{ $pendingOrdersCount }})
+                <a href="<?php echo e(route('admin.orders.index', ['status' => 'pending'])); ?>" class="btn btn-primary" style="width: 100%;">
+                    Zobacz (<?php echo e($pendingOrdersCount); ?>)
                 </a>
             </div>
             
             <div class="action-card">
                 <h3>⚠️ Niski stan magazynowy</h3>
-                <a href="{{ route('admin.products.low-stock') }}" class="btn btn-primary" style="width: 100%;">
-                    Sprawdź ({{ $lowStockCount }})
+                <a href="<?php echo e(route('admin.products.low-stock')); ?>" class="btn btn-primary" style="width: 100%;">
+                    Sprawdź (<?php echo e($lowStockCount); ?>)
                 </a>
             </div>
             
@@ -222,7 +220,7 @@
         </div>
         
         <h2 style="margin-bottom: 1rem;">Ostatnie zamówienia</h2>
-        @if($recentOrders && $recentOrders->count() > 0)
+        <?php if($recentOrders && $recentOrders->count() > 0): ?>
             <table class="recent-table">
                 <thead>
                     <tr>
@@ -235,37 +233,41 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($recentOrders as $order)
+                    <?php $__currentLoopData = $recentOrders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td>#{{ $order->id }}</td>
+                            <td>#<?php echo e($order->id); ?></td>
                             <td>
-                                @if($order->user)
-                                    {{ $order->user->first_name }} {{ $order->user->last_name }}
-                                @else
-                                    <span style="color: #999;">Gość ({{ $order->guest_email }})</span>
-                                @endif
+                                <?php if($order->user): ?>
+                                    <?php echo e($order->user->first_name); ?> <?php echo e($order->user->last_name); ?>
+
+                                <?php else: ?>
+                                    <span style="color: #999;">Gość (<?php echo e($order->guest_email); ?>)</span>
+                                <?php endif; ?>
                             </td>
-                            <td>{{ $order->created_at->format('d.m.Y H:i') }}</td>
+                            <td><?php echo e($order->created_at->format('d.m.Y H:i')); ?></td>
                             <td>
-                                <span class="status-badge status-{{ $order->status }}">
-                                    {{ ucfirst($order->status) }}
+                                <span class="status-badge status-<?php echo e($order->status); ?>">
+                                    <?php echo e(ucfirst($order->status)); ?>
+
                                 </span>
                             </td>
-                            <td>{{ number_format($order->total_price, 2) }} PLN</td>
+                            <td><?php echo e(number_format($order->total_price, 2)); ?> PLN</td>
                             <td>
-                                <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-secondary" style="padding: 0.4rem 0.8rem;">
+                                <a href="<?php echo e(route('admin.orders.show', $order)); ?>" class="btn btn-secondary" style="padding: 0.4rem 0.8rem;">
                                     Szczegóły
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
             </table>
-        @else
+        <?php else: ?>
             <p style="color: var(--text-gray); text-align: center; padding: 2rem;">
                 Brak zamówień
             </p>
-        @endif
+        <?php endif; ?>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /resources/views/admin/dashboard.blade.php ENDPATH**/ ?>

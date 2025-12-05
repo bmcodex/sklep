@@ -20,7 +20,7 @@ class ProductSeeder extends Seeder
             'price' => 2499.99,
             'stock' => 15,
             'sku' => 'BMC-EXH-001',
-            'image_url' => '/images/wydech_titan.jpg',
+            'image_url' => '/images/products/wydech_titan.jpg',
         ]);
 
         Product::create([
@@ -30,7 +30,7 @@ class ProductSeeder extends Seeder
             'price' => 1850.00,
             'stock' => 10,
             'sku' => 'BMC-INT-001',
-            'image_url' => '/images/intercooler_frostbite.jpg',
+            'image_url' => '/images/products/intercooler_frostbite.jpg',
         ]);
 
         Product::create([
@@ -40,7 +40,7 @@ class ProductSeeder extends Seeder
             'price' => 4200.50,
             'stock' => 8,
             'sku' => 'BMC-SUS-001',
-            'image_url' => '/images/zawieszenie_trackmaster.jpg',
+            'image_url' => '/images/products/zawieszenie_trackmaster.jpg',
         ]);
 
         Product::create([
@@ -50,7 +50,7 @@ class ProductSeeder extends Seeder
             'price' => 899.00,
             'stock' => 25,
             'sku' => 'BMC-EXH-002',
-            'image_url' => '/images/downpipe.jpg',
+            'image_url' => '/images/products/downpipe.jpg',
         ]);
 
         Product::create([
@@ -60,7 +60,7 @@ class ProductSeeder extends Seeder
             'price' => 3499.99,
             'stock' => 5,
             'sku' => 'BMC-ECU-001',
-            'image_url' => '/images/ecu_powerboost.jpg',
+            'image_url' => '/images/products/ecu_powerboost.jpg',
         ]);
 
         Product::create([
@@ -70,7 +70,7 @@ class ProductSeeder extends Seeder
             'price' => 299.99,
             'stock' => 50,
             'sku' => 'BMC-AIR-001',
-            'image_url' => '/images/filtr_airmax.jpg',
+            'image_url' => '/images/products/air_filter_airflow.jpg',
         ]);
     }
 }

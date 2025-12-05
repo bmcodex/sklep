@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'BMCODEX - Sklep z częściami do tuningu'); ?>
 
-@section('title', 'BMCODEX - Sklep z częściami do tuningu')
-
-@section('styles')
+<?php $__env->startSection('styles'); ?>
 <style>
     .hero {
         background: linear-gradient(135deg, #1A1A1A 0%, #2A2A2A 100%);
@@ -180,9 +178,9 @@
         }
     }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="hero">
     <h1>BMCODEX</h1>
     <p class="tagline">Performance Without Limits</p>
@@ -192,76 +190,80 @@
 </div>
 
 <div class="filters">
-    <form method="GET" action="{{ route('products.index') }}" style="display: flex; gap: 1rem; flex-wrap: wrap; width: 100%;">
+    <form method="GET" action="<?php echo e(route('products.index')); ?>" style="display: flex; gap: 1rem; flex-wrap: wrap; width: 100%;">
         <select name="category" id="category">
             <option value="">Wszystkie kategorie</option>
-            @foreach($categories as $cat)
-                <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>
-                    {{ $cat->name }}
+            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option value="<?php echo e($cat->id); ?>" <?php echo e(request('category') == $cat->id ? 'selected' : ''); ?>>
+                    <?php echo e($cat->name); ?>
+
                 </option>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </select>
         
-        <input type="number" name="min_price" placeholder="Cena od" value="{{ request('min_price') }}" step="0.01">
-        <input type="number" name="max_price" placeholder="Cena do" value="{{ request('max_price') }}" step="0.01">
+        <input type="number" name="min_price" placeholder="Cena od" value="<?php echo e(request('min_price')); ?>" step="0.01">
+        <input type="number" name="max_price" placeholder="Cena do" value="<?php echo e(request('max_price')); ?>" step="0.01">
         
-        <input type="text" name="search" placeholder="Szukaj produktu..." value="{{ request('search') }}">
+        <input type="text" name="search" placeholder="Szukaj produktu..." value="<?php echo e(request('search')); ?>">
         
         <button type="submit" class="btn btn-primary">Filtruj</button>
-        <a href="{{ route('products.index') }}" class="btn btn-secondary">Wyczyść</a>
+        <a href="<?php echo e(route('products.index')); ?>" class="btn btn-secondary">Wyczyść</a>
     </form>
 </div>
 
-@if($products->count() > 0)
+<?php if($products->count() > 0): ?>
     <div class="products-grid">
-        @foreach($products as $product)
+        <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="product-card">
                 <div class="product-image">
-                    @if($product->image_url)
-                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: cover;">
-                    @else
+                    <?php if($product->image_url): ?>
+                        <img src="<?php echo e($product->image_url); ?>" alt="<?php echo e($product->name); ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                    <?php else: ?>
                         🏎️
-                    @endif
+                    <?php endif; ?>
                 </div>
                 <div class="product-info">
-                    <div class="product-category">{{ $product->category->name }}</div>
-                    <h3 class="product-name">{{ $product->name }}</h3>
-                    <div class="product-price">{{ number_format($product->price, 2) }} PLN</div>
+                    <div class="product-category"><?php echo e($product->category->name); ?></div>
+                    <h3 class="product-name"><?php echo e($product->name); ?></h3>
+                    <div class="product-price"><?php echo e(number_format($product->price, 2)); ?> PLN</div>
                     <div class="product-stock">
-                        @if($product->stock > 10)
-                            ✅ Dostępny ({{ $product->stock }} szt.)
-                        @elseif($product->stock > 0)
-                            ⚠️ Ostatnie sztuki ({{ $product->stock }} szt.)
-                        @else
+                        <?php if($product->stock > 10): ?>
+                            ✅ Dostępny (<?php echo e($product->stock); ?> szt.)
+                        <?php elseif($product->stock > 0): ?>
+                            ⚠️ Ostatnie sztuki (<?php echo e($product->stock); ?> szt.)
+                        <?php else: ?>
                             ❌ Brak w magazynie
-                        @endif
+                        <?php endif; ?>
                     </div>
                     <div class="product-actions">
-                        <a href="{{ route('products.show', $product) }}" class="btn btn-secondary">Szczegóły</a>
-                        @if($product->stock > 0)
-                            <form action="{{ route('cart.add', $product) }}" method="POST" style="flex: 1;">
-                                @csrf
+                        <a href="<?php echo e(route('products.show', $product)); ?>" class="btn btn-secondary">Szczegóły</a>
+                        <?php if($product->stock > 0): ?>
+                            <form action="<?php echo e(route('cart.add', $product)); ?>" method="POST" style="flex: 1;">
+                                <?php echo csrf_field(); ?>
                                 <input type="hidden" name="quantity" value="1">
                                 <button type="submit" class="btn btn-primary" style="width: 100%;">
                                     🛒 Dodaj
                                 </button>
                             </form>
-                        @endif
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
     
     <div style="margin-top: 2rem;">
-        {{ $products->links() }}
+        <?php echo e($products->links()); ?>
+
     </div>
-@else
+<?php else: ?>
     <div class="no-products">
         <p>😔 Nie znaleziono produktów spełniających kryteria.</p>
-        <a href="{{ route('products.index') }}" class="btn btn-primary" style="margin-top: 1rem;">
+        <a href="<?php echo e(route('products.index')); ?>" class="btn btn-primary" style="margin-top: 1rem;">
             Pokaż wszystkie produkty
         </a>
     </div>
-@endif
-@endsection
+<?php endif; ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /resources/views/home.blade.php ENDPATH**/ ?>
