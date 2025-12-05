@@ -2,250 +2,391 @@
 
 @section('content')
 <style>
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
+    body {
+        background: #ffffff;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
     }
-    @keyframes slideUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
+    .nike-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 20px;
     }
-    .animate-fade-in {
-        animation: fadeIn 0.6s ease-out;
+    .nike-header {
+        text-align: center;
+        margin-bottom: 60px;
     }
-    .animate-slide-up {
-        animation: slideUp 0.6s ease-out;
+    .nike-logo {
+        font-size: 48px;
+        font-weight: 900;
+        letter-spacing: -2px;
+        color: #111;
+        margin-bottom: 8px;
     }
-    .payment-method:hover {
-        transform: translateX(5px);
-        box-shadow: 0 4px 20px rgba(249, 115, 22, 0.3);
+    .nike-subtitle {
+        font-size: 14px;
+        color: #757575;
+        font-weight: 400;
+        letter-spacing: 0.5px;
     }
-    .payment-method input:checked + div {
-        border-color: #f97316;
-        background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%);
+    .nike-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 80px;
+        margin-top: 40px;
+    }
+    @media (max-width: 768px) {
+        .nike-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+    }
+    .nike-summary {
+        padding: 40px;
+        background: #f5f5f5;
+        border-radius: 0;
+    }
+    .nike-summary-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #111;
+        margin-bottom: 32px;
+        letter-spacing: -0.5px;
+    }
+    .nike-summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 0;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    .nike-summary-label {
+        font-size: 15px;
+        color: #757575;
+        font-weight: 400;
+    }
+    .nike-summary-value {
+        font-size: 15px;
+        color: #111;
+        font-weight: 500;
+    }
+    .nike-total {
+        display: flex;
+        justify-content: space-between;
+        padding: 24px 0 0 0;
+        margin-top: 16px;
+    }
+    .nike-total-label {
+        font-size: 18px;
+        color: #111;
+        font-weight: 700;
+    }
+    .nike-total-value {
+        font-size: 24px;
+        color: #111;
+        font-weight: 900;
+    }
+    .nike-payment {
+        padding: 40px 0;
+    }
+    .nike-section-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #111;
+        margin-bottom: 32px;
+        letter-spacing: -0.5px;
+    }
+    .nike-payment-method {
+        border: 2px solid #e5e5e5;
+        padding: 24px;
+        margin-bottom: 16px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: #fff;
+    }
+    .nike-payment-method:hover {
+        border-color: #111;
+    }
+    .nike-payment-method.selected {
+        border-color: #111;
+        background: #f5f5f5;
+    }
+    .nike-payment-method input[type="radio"] {
+        display: none;
+    }
+    .nike-payment-content {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .nike-payment-icon {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-center;
+        background: #fff;
+        border: 1px solid #e5e5e5;
+    }
+    .nike-payment-info {
+        flex: 1;
+    }
+    .nike-payment-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: #111;
+        margin-bottom: 4px;
+    }
+    .nike-payment-desc {
+        font-size: 14px;
+        color: #757575;
+    }
+    .nike-payment-check {
+        width: 24px;
+        height: 24px;
+        border: 2px solid #e5e5e5;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+    }
+    .nike-payment-method.selected .nike-payment-check {
+        border-color: #111;
+        background: #111;
+    }
+    .nike-payment-check svg {
+        width: 14px;
+        height: 14px;
+        fill: #fff;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+    .nike-payment-method.selected .nike-payment-check svg {
+        opacity: 1;
+    }
+    .nike-sandbox-notice {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 20px;
+        margin: 32px 0;
+    }
+    .nike-sandbox-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #111;
+        margin-bottom: 8px;
+    }
+    .nike-sandbox-text {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+    }
+    .nike-buttons {
+        display: flex;
+        gap: 16px;
+        margin-top: 40px;
+    }
+    .nike-btn {
+        flex: 1;
+        padding: 18px 32px;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .nike-btn-secondary {
+        background: #fff;
+        color: #111;
+        border: 2px solid #e5e5e5;
+    }
+    .nike-btn-secondary:hover {
+        border-color: #111;
+    }
+    .nike-btn-primary {
+        background: #111;
+        color: #fff;
+        border: 2px solid #111;
+    }
+    .nike-btn-primary:hover {
+        background: #000;
+    }
+    .nike-footer {
+        text-align: center;
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 1px solid #e5e5e5;
+    }
+    .nike-footer-text {
+        font-size: 14px;
+        color: #757575;
     }
 </style>
 
-<div class="min-h-screen bg-gradient-to-b from-gray-900 to-black py-12 px-4">
-    <div class="max-w-4xl mx-auto">
-        
-        <!-- Header -->
-        <div class="text-center mb-10 animate-fade-in">
-            <div class="inline-flex items-center bg-gradient-to-r from-orange-500 to-orange-600 px-10 py-5 rounded-2xl shadow-2xl mb-4">
-                <svg class="w-8 h-8 text-white mr-3" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z"/>
-                </svg>
-                <h1 class="text-4xl font-bold text-white">PayU</h1>
-            </div>
-            <div class="inline-block bg-yellow-500 bg-opacity-20 border border-yellow-500 rounded-full px-6 py-2">
-                <p class="text-yellow-400 font-semibold">🧪 Tryb testowy - Sandbox</p>
+<div class="nike-container">
+    <!-- Header -->
+    <div class="nike-header">
+        <div class="nike-logo">PayU</div>
+        <div class="nike-subtitle">BEZPIECZNA PŁATNOŚĆ ONLINE</div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="nike-grid">
+        <!-- Left Column - Summary -->
+        <div>
+            <div class="nike-summary">
+                <h2 class="nike-summary-title">Podsumowanie</h2>
+                
+                <div class="nike-summary-row">
+                    <span class="nike-summary-label">Zamówienie</span>
+                    <span class="nike-summary-value">#{{ $order->id }}</span>
+                </div>
+                
+                <div class="nike-summary-row">
+                    <span class="nike-summary-label">Data</span>
+                    <span class="nike-summary-value">{{ $order->created_at->format('d.m.Y') }}</span>
+                </div>
+                
+                <div class="nike-summary-row">
+                    <span class="nike-summary-label">Godzina</span>
+                    <span class="nike-summary-value">{{ $order->created_at->format('H:i') }}</span>
+                </div>
+                
+                <div class="nike-total">
+                    <span class="nike-total-label">Razem</span>
+                    <span class="nike-total-value">{{ number_format($order->total_price, 2) }} PLN</span>
+                </div>
             </div>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6">
+        <!-- Right Column - Payment Methods -->
+        <div class="nike-payment">
+            <h2 class="nike-section-title">Wybierz metodę płatności</h2>
             
-            <!-- Left Column - Order Summary -->
-            <div class="md:col-span-1 animate-slide-up">
-                <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 shadow-2xl border border-gray-700">
-                    <h2 class="text-xl font-bold text-white mb-6 flex items-center">
-                        <svg class="w-6 h-6 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                        Zamówienie
-                    </h2>
-                    
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center pb-3 border-b border-gray-700">
-                            <span class="text-gray-400">Numer</span>
-                            <span class="font-mono text-orange-500 font-bold">#{{ $order->id }}</span>
+            <form action="{{ route('payu.process', $order) }}" method="POST" id="paymentForm">
+                @csrf
+                
+                <!-- BLIK -->
+                <label class="nike-payment-method" data-method="blik">
+                    <input type="radio" name="payment_method" value="blik" required>
+                    <div class="nike-payment-content">
+                        <div class="nike-payment-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <rect width="40" height="40" fill="#111"/>
+                                <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#fff" font-size="12" font-weight="bold">BLIK</text>
+                            </svg>
                         </div>
-                        <div class="flex justify-between items-center pb-3 border-b border-gray-700">
-                            <span class="text-gray-400">Data</span>
-                            <span class="text-white">{{ $order->created_at->format('d.m.Y') }}</span>
+                        <div class="nike-payment-info">
+                            <div class="nike-payment-name">BLIK</div>
+                            <div class="nike-payment-desc">Kod z aplikacji bankowej</div>
                         </div>
-                        <div class="flex justify-between items-center pb-3 border-b border-gray-700">
-                            <span class="text-gray-400">Godzina</span>
-                            <span class="text-white">{{ $order->created_at->format('H:i') }}</span>
+                        <div class="nike-payment-check">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                         </div>
-                        
-                        <div class="mt-6 pt-4 border-t-2 border-orange-500">
-                            <div class="flex justify-between items-center">
-                                <span class="text-lg text-white font-semibold">Do zapłaty</span>
-                                <div class="text-right">
-                                    <div class="text-3xl font-bold text-orange-500">
-                                        {{ number_format($order->total_price, 2) }}
-                                    </div>
-                                    <div class="text-sm text-gray-400">PLN</div>
-                                </div>
-                            </div>
+                    </div>
+                </label>
+
+                <!-- Karta -->
+                <label class="nike-payment-method" data-method="card">
+                    <input type="radio" name="payment_method" value="card">
+                    <div class="nike-payment-content">
+                        <div class="nike-payment-icon">
+                            <svg width="40" height="30" viewBox="0 0 40 30" fill="none">
+                                <rect width="40" height="30" rx="4" fill="#111"/>
+                                <rect x="4" y="8" width="32" height="4" fill="#fff"/>
+                            </svg>
                         </div>
+                        <div class="nike-payment-info">
+                            <div class="nike-payment-name">Karta płatnicza</div>
+                            <div class="nike-payment-desc">Visa, Mastercard, Maestro</div>
+                        </div>
+                        <div class="nike-payment-check">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        </div>
+                    </div>
+                </label>
+
+                <!-- Przelew -->
+                <label class="nike-payment-method" data-method="transfer">
+                    <input type="radio" name="payment_method" value="transfer">
+                    <div class="nike-payment-content">
+                        <div class="nike-payment-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <path d="M8 16h24M8 12h24M8 8l16-4 16 4v24H8V8z" stroke="#111" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <div class="nike-payment-info">
+                            <div class="nike-payment-name">Przelew bankowy</div>
+                            <div class="nike-payment-desc">Szybki przelew online</div>
+                        </div>
+                        <div class="nike-payment-check">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        </div>
+                    </div>
+                </label>
+
+                <!-- PayPo -->
+                <label class="nike-payment-method" data-method="paypo">
+                    <input type="radio" name="payment_method" value="paypo">
+                    <div class="nike-payment-content">
+                        <div class="nike-payment-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <circle cx="20" cy="20" r="18" fill="#111"/>
+                                <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#fff" font-size="10" font-weight="bold">PP</text>
+                            </svg>
+                        </div>
+                        <div class="nike-payment-info">
+                            <div class="nike-payment-name">PayPo</div>
+                            <div class="nike-payment-desc">Kup teraz, zapłać za 30 dni</div>
+                        </div>
+                        <div class="nike-payment-check">
+                            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        </div>
+                    </div>
+                </label>
+
+                <!-- Sandbox Notice -->
+                <div class="nike-sandbox-notice">
+                    <div class="nike-sandbox-title">Tryb testowy (Sandbox)</div>
+                    <div class="nike-sandbox-text">
+                        To jest symulacja płatności. Żadne prawdziwe środki nie zostaną pobrane. 
+                        Po kliknięciu "Zapłać" płatność zostanie automatycznie zatwierdzona.
                     </div>
                 </div>
 
-                <!-- Security Badge -->
-                <div class="mt-6 bg-gray-800 bg-opacity-50 rounded-xl p-4 border border-gray-700">
-                    <div class="flex items-start">
-                        <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
-                        </svg>
-                        <div>
-                            <p class="text-white font-semibold text-sm">Bezpieczna płatność</p>
-                            <p class="text-gray-400 text-xs mt-1">Szyfrowanie SSL 256-bit</p>
-                        </div>
-                    </div>
+                <!-- Buttons -->
+                <div class="nike-buttons">
+                    <a href="{{ route('payu.cancel', $order) }}" class="nike-btn nike-btn-secondary">
+                        Anuluj
+                    </a>
+                    <button type="submit" class="nike-btn nike-btn-primary">
+                        Zapłać {{ number_format($order->total_price, 2) }} PLN
+                    </button>
                 </div>
-            </div>
-
-            <!-- Right Column - Payment Methods -->
-            <div class="md:col-span-2 animate-slide-up" style="animation-delay: 0.1s;">
-                <form action="{{ route('payu.process', $order) }}" method="POST" class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 shadow-2xl border border-gray-700">
-                    @csrf
-                    
-                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
-                        <svg class="w-7 h-7 mr-3 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                        </svg>
-                        Wybierz metodę płatności
-                    </h3>
-                    
-                    <div class="space-y-4">
-                        <!-- BLIK -->
-                        <label class="payment-method flex items-center p-5 bg-gray-700 bg-opacity-50 rounded-xl cursor-pointer hover:bg-gray-700 transition-all duration-300 border-2 border-transparent">
-                            <input type="radio" name="payment_method" value="blik" class="hidden" required>
-                            <div class="flex items-center w-full">
-                                <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                                    <span class="text-2xl font-black text-blue-600">BLIK</span>
-                                </div>
-                                <div class="flex-1">
-                                    <span class="text-white font-bold text-lg block">BLIK</span>
-                                    <span class="text-gray-400 text-sm">Kod z aplikacji bankowej</span>
-                                </div>
-                                <div class="text-orange-500 opacity-0 transition-opacity">
-                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </label>
-
-                        <!-- Karta płatnicza -->
-                        <label class="payment-method flex items-center p-5 bg-gray-700 bg-opacity-50 rounded-xl cursor-pointer hover:bg-gray-700 transition-all duration-300 border-2 border-transparent">
-                            <input type="radio" name="payment_method" value="card" class="hidden">
-                            <div class="flex items-center w-full">
-                                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                                    </svg>
-                                </div>
-                                <div class="flex-1">
-                                    <span class="text-white font-bold text-lg block">Karta płatnicza</span>
-                                    <span class="text-gray-400 text-sm">Visa, Mastercard, Maestro</span>
-                                </div>
-                                <div class="text-orange-500 opacity-0 transition-opacity">
-                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </label>
-
-                        <!-- Przelew bankowy -->
-                        <label class="payment-method flex items-center p-5 bg-gray-700 bg-opacity-50 rounded-xl cursor-pointer hover:bg-gray-700 transition-all duration-300 border-2 border-transparent">
-                            <input type="radio" name="payment_method" value="transfer" class="hidden">
-                            <div class="flex items-center w-full">
-                                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
-                                    </svg>
-                                </div>
-                                <div class="flex-1">
-                                    <span class="text-white font-bold text-lg block">Przelew bankowy</span>
-                                    <span class="text-gray-400 text-sm">Szybki przelew online</span>
-                                </div>
-                                <div class="text-orange-500 opacity-0 transition-opacity">
-                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </label>
-
-                        <!-- PayPo -->
-                        <label class="payment-method flex items-center p-5 bg-gray-700 bg-opacity-50 rounded-xl cursor-pointer hover:bg-gray-700 transition-all duration-300 border-2 border-transparent">
-                            <input type="radio" name="payment_method" value="paypo" class="hidden">
-                            <div class="flex items-center w-full">
-                                <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                                    <span class="text-white font-black text-lg">PayPo</span>
-                                </div>
-                                <div class="flex-1">
-                                    <span class="text-white font-bold text-lg block">PayPo</span>
-                                    <span class="text-gray-400 text-sm">Kup teraz, zapłać za 30 dni</span>
-                                </div>
-                                <div class="text-orange-500 opacity-0 transition-opacity">
-                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-
-                    <!-- Sandbox Info -->
-                    <div class="mt-6 p-5 bg-yellow-900 bg-opacity-20 border-2 border-yellow-600 rounded-xl">
-                        <div class="flex items-start">
-                            <svg class="w-6 h-6 text-yellow-400 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/>
-                            </svg>
-                            <div>
-                                <p class="text-yellow-400 font-bold text-sm">Tryb testowy (Sandbox)</p>
-                                <p class="text-yellow-300 text-xs mt-1">To jest symulacja płatności. Żadne prawdziwe środki nie zostaną pobrane. Po kliknięciu "Zapłać" płatność zostanie automatycznie zatwierdzona.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-4 mt-8">
-                        <a href="{{ route('payu.cancel', $order) }}" 
-                           class="flex-1 bg-gray-700 text-white px-8 py-4 rounded-xl hover:bg-gray-600 transition-all duration-300 text-center font-semibold flex items-center justify-center">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                            </svg>
-                            Anuluj płatność
-                        </a>
-                        <button type="submit" 
-                                class="flex-1 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 text-white px-8 py-4 rounded-xl hover:from-orange-600 hover:via-orange-700 hover:to-orange-600 transition-all duration-300 font-bold text-lg shadow-2xl transform hover:scale-105 flex items-center justify-center">
-                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                            </svg>
-                            Zapłać {{ number_format($order->total_price, 2) }} PLN
-                        </button>
-                    </div>
-                </form>
-            </div>
+            </form>
         </div>
+    </div>
 
-        <!-- Footer -->
-        <div class="mt-8 text-center text-gray-500 text-sm animate-fade-in" style="animation-delay: 0.3s;">
-            <p class="flex items-center justify-center">
-                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"/>
-                </svg>
-                Płatność zabezpieczona przez PayU Sandbox | SSL 256-bit
-            </p>
-        </div>
+    <!-- Footer -->
+    <div class="nike-footer">
+        <p class="nike-footer-text">Płatność zabezpieczona przez PayU | SSL 256-bit</p>
     </div>
 </div>
 
 <script>
-    // Dodaj efekt zaznaczenia dla wybranej metody płatności
-    document.querySelectorAll('.payment-method input').forEach(input => {
-        input.addEventListener('change', function() {
-            document.querySelectorAll('.payment-method').forEach(label => {
-                label.querySelector('.text-orange-500').style.opacity = '0';
+    // Handle payment method selection
+    document.querySelectorAll('.nike-payment-method').forEach(label => {
+        label.addEventListener('click', function() {
+            // Remove selected class from all
+            document.querySelectorAll('.nike-payment-method').forEach(l => {
+                l.classList.remove('selected');
             });
-            if(this.checked) {
-                this.closest('.payment-method').querySelector('.text-orange-500').style.opacity = '1';
-            }
+            // Add selected class to clicked
+            this.classList.add('selected');
+            // Check the radio
+            this.querySelector('input[type="radio"]').checked = true;
         });
     });
 </script>
