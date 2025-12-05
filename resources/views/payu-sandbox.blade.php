@@ -3,7 +3,7 @@
 @section('content')
 <style>
     body {
-        background: #ffffff;
+        background: #000000;
         font-family: 'Helvetica Neue', Arial, sans-serif;
     }
     .nike-container {
@@ -19,12 +19,12 @@
         font-size: 48px;
         font-weight: 900;
         letter-spacing: -2px;
-        color: #111;
+        color: #ffffff;
         margin-bottom: 8px;
     }
     .nike-subtitle {
         font-size: 14px;
-        color: #757575;
+        color: #8d8d8d;
         font-weight: 400;
         letter-spacing: 0.5px;
     }
@@ -42,13 +42,13 @@
     }
     .nike-summary {
         padding: 40px;
-        background: #f5f5f5;
+        background: #111111;
         border-radius: 0;
     }
     .nike-summary-title {
         font-size: 24px;
         font-weight: 700;
-        color: #111;
+        color: #ffffff;
         margin-bottom: 32px;
         letter-spacing: -0.5px;
     }
@@ -56,16 +56,16 @@
         display: flex;
         justify-content: space-between;
         padding: 16px 0;
-        border-bottom: 1px solid #e5e5e5;
+        border-bottom: 1px solid #2a2a2a;
     }
     .nike-summary-label {
         font-size: 15px;
-        color: #757575;
+        color: #8d8d8d;
         font-weight: 400;
     }
     .nike-summary-value {
         font-size: 15px;
-        color: #111;
+        color: #ffffff;
         font-weight: 500;
     }
     .nike-total {
@@ -76,12 +76,12 @@
     }
     .nike-total-label {
         font-size: 18px;
-        color: #111;
+        color: #ffffff;
         font-weight: 700;
     }
     .nike-total-value {
         font-size: 24px;
-        color: #111;
+        color: #ffffff;
         font-weight: 900;
     }
     .nike-payment {
@@ -90,24 +90,24 @@
     .nike-section-title {
         font-size: 28px;
         font-weight: 700;
-        color: #111;
+        color: #ffffff;
         margin-bottom: 32px;
         letter-spacing: -0.5px;
     }
     .nike-payment-method {
-        border: 2px solid #e5e5e5;
+        border: 2px solid #2a2a2a;
         padding: 24px;
         margin-bottom: 16px;
         cursor: pointer;
         transition: all 0.2s ease;
-        background: #fff;
+        background: #000;
     }
     .nike-payment-method:hover {
-        border-color: #111;
+        border-color: #ffffff;
     }
     .nike-payment-method.selected {
-        border-color: #111;
-        background: #f5f5f5;
+        border-color: #ffffff;
+        background: #111111;
     }
     .nike-payment-method input[type="radio"] {
         display: none;
@@ -122,9 +122,9 @@
         height: 60px;
         display: flex;
         align-items: center;
-        justify-center;
-        background: #fff;
-        border: 1px solid #e5e5e5;
+        justify-content: center;
+        background: #111;
+        border: 1px solid #2a2a2a;
     }
     .nike-payment-info {
         flex: 1;
@@ -132,17 +132,17 @@
     .nike-payment-name {
         font-size: 18px;
         font-weight: 700;
-        color: #111;
+        color: #ffffff;
         margin-bottom: 4px;
     }
     .nike-payment-desc {
         font-size: 14px;
-        color: #757575;
+        color: #8d8d8d;
     }
     .nike-payment-check {
         width: 24px;
         height: 24px;
-        border: 2px solid #e5e5e5;
+        border: 2px solid #2a2a2a;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -150,13 +150,13 @@
         transition: all 0.2s ease;
     }
     .nike-payment-method.selected .nike-payment-check {
-        border-color: #111;
-        background: #111;
+        border-color: #ffffff;
+        background: #ffffff;
     }
     .nike-payment-check svg {
         width: 14px;
         height: 14px;
-        fill: #fff;
+        fill: #000;
         opacity: 0;
         transition: opacity 0.2s ease;
     }
@@ -164,7 +164,7 @@
         opacity: 1;
     }
     .nike-sandbox-notice {
-        background: #fff3cd;
+        background: #1a1a1a;
         border-left: 4px solid #ffc107;
         padding: 20px;
         margin: 32px 0;
@@ -172,12 +172,12 @@
     .nike-sandbox-title {
         font-size: 16px;
         font-weight: 700;
-        color: #111;
+        color: #ffffff;
         margin-bottom: 8px;
     }
     .nike-sandbox-text {
         font-size: 14px;
-        color: #666;
+        color: #8d8d8d;
         line-height: 1.6;
     }
     .nike-buttons {
@@ -198,30 +198,30 @@
         display: inline-block;
     }
     .nike-btn-secondary {
-        background: #fff;
-        color: #111;
-        border: 2px solid #e5e5e5;
+        background: #000;
+        color: #ffffff;
+        border: 2px solid #2a2a2a;
     }
     .nike-btn-secondary:hover {
-        border-color: #111;
+        border-color: #ffffff;
     }
     .nike-btn-primary {
-        background: #111;
-        color: #fff;
-        border: 2px solid #111;
+        background: #ffffff;
+        color: #000;
+        border: 2px solid #ffffff;
     }
     .nike-btn-primary:hover {
-        background: #000;
+        background: #e5e5e5;
     }
     .nike-footer {
         text-align: center;
         margin-top: 60px;
         padding-top: 40px;
-        border-top: 1px solid #e5e5e5;
+        border-top: 1px solid #2a2a2a;
     }
     .nike-footer-text {
         font-size: 14px;
-        color: #757575;
+        color: #8d8d8d;
     }
 </style>
 
@@ -274,8 +274,8 @@
                     <div class="nike-payment-content">
                         <div class="nike-payment-icon">
                             <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                                <rect width="40" height="40" fill="#111"/>
-                                <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#fff" font-size="12" font-weight="bold">BLIK</text>
+                                <rect width="40" height="40" fill="#ffffff"/>
+                                <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#000" font-size="12" font-weight="bold">BLIK</text>
                             </svg>
                         </div>
                         <div class="nike-payment-info">
@@ -294,8 +294,8 @@
                     <div class="nike-payment-content">
                         <div class="nike-payment-icon">
                             <svg width="40" height="30" viewBox="0 0 40 30" fill="none">
-                                <rect width="40" height="30" rx="4" fill="#111"/>
-                                <rect x="4" y="8" width="32" height="4" fill="#fff"/>
+                                <rect width="40" height="30" rx="4" fill="#ffffff"/>
+                                <rect x="4" y="8" width="32" height="4" fill="#000"/>
                             </svg>
                         </div>
                         <div class="nike-payment-info">
@@ -314,7 +314,7 @@
                     <div class="nike-payment-content">
                         <div class="nike-payment-icon">
                             <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                                <path d="M8 16h24M8 12h24M8 8l16-4 16 4v24H8V8z" stroke="#111" stroke-width="2" fill="none"/>
+                                <path d="M8 16h24M8 12h24M8 8l16-4 16 4v24H8V8z" stroke="#ffffff" stroke-width="2" fill="none"/>
                             </svg>
                         </div>
                         <div class="nike-payment-info">
@@ -333,8 +333,8 @@
                     <div class="nike-payment-content">
                         <div class="nike-payment-icon">
                             <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                                <circle cx="20" cy="20" r="18" fill="#111"/>
-                                <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#fff" font-size="10" font-weight="bold">PP</text>
+                                <circle cx="20" cy="20" r="18" fill="#ffffff"/>
+                                <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#000" font-size="10" font-weight="bold">PP</text>
                             </svg>
                         </div>
                         <div class="nike-payment-info">
